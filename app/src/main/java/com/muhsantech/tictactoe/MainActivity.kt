@@ -165,7 +165,7 @@ class MainActivity : AppCompatActivity() {
             }
             dialog.show()
 
-//
+
 //            val dialog = Dialog(this)
 //            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
 //            dialog.setCancelable(false)
@@ -182,7 +182,7 @@ class MainActivity : AppCompatActivity() {
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setCancelable(false)
             // set background transparent
-            dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            //dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
             // set view
             dialog.setContentView(winnerDBinding.root)
