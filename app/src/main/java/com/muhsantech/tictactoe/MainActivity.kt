@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.muhsantech.tictactoe.databinding.ActivityMainBinding
 import com.muhsantech.tictactoe.databinding.WinnerDialougeBinding
+import java.util.Random
 
 
 class MainActivity : AppCompatActivity() {
@@ -57,7 +58,7 @@ class MainActivity : AppCompatActivity() {
             btnSelected.setBackgroundResource(R.drawable.playeronebox)
             player1.add(cellId)
             activePlayer = 2
-
+            autoPlay()
         }
         else {
             btnSelected.text = "0"
@@ -231,5 +232,34 @@ class MainActivity : AppCompatActivity() {
         binding.btn7.isEnabled = false
         binding.btn8.isEnabled = false
         binding.btn9.isEnabled = false
+    }
+
+    private fun autoPlay(){
+        var emptyCells = ArrayList<Int>()
+        for(cellID in 1..9){
+            if(!((player1.contains(cellID)) || (player2.contains(cellID)))){
+                emptyCells.add(cellID)
+            }
+        }
+        val random = Random()
+        val randIndex = random.nextInt(emptyCells.size-0)+0
+        val cellID = emptyCells[randIndex]
+
+        if(!(emptyCells.isEmpty())){
+            val btnSelected: AppCompatButton
+            when(cellID){
+                1->btnSelected = binding.btn1
+                2->btnSelected = binding.btn2
+                3->btnSelected = binding.btn3
+                4->btnSelected = binding.btn4
+                5->btnSelected = binding.btn5
+                6->btnSelected = binding.btn6
+                7->btnSelected = binding.btn7
+                8->btnSelected = binding.btn8
+                9->btnSelected = binding.btn9
+                else -> btnSelected = binding.btn1
+            }
+            playGame(cellID,btnSelected)
+        }
     }
 }
