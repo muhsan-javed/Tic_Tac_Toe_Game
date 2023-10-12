@@ -22,7 +22,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
     }
 
     fun btnClick(view:View) {
@@ -53,13 +53,13 @@ class MainActivity : AppCompatActivity() {
 
         if (activePlayer == 1){
             btnSelected.text = "X"
-            btnSelected.setBackgroundResource(R.color.green)
+            btnSelected.setBackgroundResource(R.drawable.playeronebox)
             player1.add(cellId)
             activePlayer = 2
         }
         else {
             btnSelected.text = "0"
-            btnSelected.setBackgroundResource(R.color.Yellow)
+            btnSelected.setBackgroundResource(R.drawable.playertwobox)
             player2.add(cellId)
             activePlayer = 1
         }
@@ -164,15 +164,6 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
             }
             dialog.show()
-
-
-//            val dialog = Dialog(this)
-//            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-//            dialog.setCancelable(false)
-//            dialog.setContentView(R.layout.winner_dialouge)
-//            var winnerResult = dialog.findViewById<TextView>(R.id.winnerResultTextView)
-           // val winnerDialougeBinding as winnerDia
-
         }
         else if (winner ==2 ){
             // Inflate dialog main
