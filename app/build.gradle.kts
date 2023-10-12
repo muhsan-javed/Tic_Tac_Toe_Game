@@ -10,7 +10,7 @@ android {
     defaultConfig {
         applicationId = "com.muhsantech.tictactoe"
         minSdk = 27
-        targetSdk = 33
+        targetSdk = 3332
         versionCode = 1
         versionName = "1.0"
 
