@@ -1,16 +1,10 @@
 package com.muhsantech.tictactoe
 
 import android.app.Dialog
-import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
-import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.muhsantech.tictactoe.databinding.ActivityMainBinding
@@ -23,6 +17,12 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.resetBtn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            finish()
+            startActivity(intent)
+        }
     }
 
     fun btnClick(view:View) {
@@ -49,6 +49,7 @@ class MainActivity : AppCompatActivity() {
     var activePlayer = 1
     var player1 = ArrayList<Int>()
     var player2 = ArrayList<Int>()
+    var btnUsed = 0
     fun playGame(cellId : Int, btnSelected: AppCompatButton) {
 
         if (activePlayer == 1){
@@ -56,12 +57,14 @@ class MainActivity : AppCompatActivity() {
             btnSelected.setBackgroundResource(R.drawable.playeronebox)
             player1.add(cellId)
             activePlayer = 2
+
         }
         else {
             btnSelected.text = "0"
             btnSelected.setBackgroundResource(R.drawable.playertwobox)
             player2.add(cellId)
             activePlayer = 1
+
         }
 
         btnSelected.isEnabled = false
@@ -96,7 +99,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        // row 1 winner vert
+        // Column 1 winner vert
         if (player1.contains(1) && player1.contains(4) && player1.contains(7)){
             winner = 1
         }
@@ -104,7 +107,7 @@ class MainActivity : AppCompatActivity() {
             winner = 2
         }
 
-        // row 2 winner vert
+        // Column 2 winner vert
         if (player1.contains(2) && player1.contains(5) && player1.contains(8)){
             winner = 1
         }
@@ -112,7 +115,7 @@ class MainActivity : AppCompatActivity() {
             winner = 2
         }
 
-        // row 3 winner vert
+        // Column 3 winner vert
         if (player1.contains(3) && player1.contains(6) && player1.contains(9)){
             winner = 1
         }
@@ -120,7 +123,7 @@ class MainActivity : AppCompatActivity() {
             winner = 2
         }
 
-        // row 3 winner 1 5 9
+        // \  winner 1 5 9
         if (player1.contains(1) && player1.contains(5) && player1.contains(9)){
             winner = 1
         }
@@ -128,7 +131,7 @@ class MainActivity : AppCompatActivity() {
             winner = 2
         }
 
-        // row 3 winner 3 5 7
+        // /  winner 3 5 7
         if (player1.contains(3) && player1.contains(5) && player1.contains(7)){
             winner = 1
         }
@@ -137,23 +140,69 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        if (winner == 1)
-        {
+        if (winner != -1) {
+            // Winner
+            if (winner == 1)
+            {
+                val winnerDBinding = WinnerDialougeBinding.inflate(layoutInflater)
+                val dialog = Dialog(this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                dialog.setCancelable(false)
+                dialog.setContentView(winnerDBinding.root)
+                winnerDBinding.winnerResultTextView.text = "Player 1 win the Game"
+                winnerDBinding.btnExit.setOnClickListener {
+                    val intent = Intent(this,StartActivity::class.java)
+                    startActivity(intent)
+                }
+                winnerDBinding.btnPlayAgain.setOnClickListener {
+                    val intent = Intent(this,MainActivity::class.java)
+                    finish()
+                    startActivity(intent)
+                }
+                dialog.show()
+            }
+            // Loser!
+            else {
 
-            // Inflate dialog main
+                val winnerDBinding = WinnerDialougeBinding.inflate(layoutInflater)
+                val dialog = Dialog(this);
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                dialog.setCancelable(false)
+                dialog.setContentView(winnerDBinding.root)
+                winnerDBinding.winnerResultTextView.text = "Player 2 win the Game"
+                winnerDBinding.btnExit.setOnClickListener {
+                    val intent = Intent(this,StartActivity::class.java)
+                    startActivity(intent)
+                }
+                winnerDBinding.btnPlayAgain.setOnClickListener {
+                    val intent = Intent(this,MainActivity::class.java)
+                    finish()
+                    startActivity(intent)
+                }
+                dialog.show()
+            }
+
+            // 2 Player Not Winner
+            if (winner == 1 || winner == 2){
+                disableBtn()
+            }
+
+        }
+        btnUsed = 0
+        for (cellId in 0..9){
+            if(player1.contains(cellId) || player2.contains(cellId)){
+                btnUsed++
+            }
+        }
+        if (btnUsed >= 8 && winner == -1){
+
+            disableBtn()
             val winnerDBinding = WinnerDialougeBinding.inflate(layoutInflater)
-            // Initialize dialog
             val dialog = Dialog(this);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
             dialog.setCancelable(false)
-            // set background transparent
-            //dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-            // set view
             dialog.setContentView(winnerDBinding.root)
-
-            winnerDBinding.winnerResultTextView.text = "Player 1 win the Game"
-
+            winnerDBinding.winnerResultTextView.text = "No one won the Game"
             winnerDBinding.btnExit.setOnClickListener {
                 val intent = Intent(this,StartActivity::class.java)
                 startActivity(intent)
@@ -165,37 +214,22 @@ class MainActivity : AppCompatActivity() {
             }
             dialog.show()
         }
-        else if (winner ==2 ){
-            // Inflate dialog main
-            val winnerDBinding = WinnerDialougeBinding.inflate(layoutInflater)
-            // Initialize dialog
-            val dialog = Dialog(this);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-            dialog.setCancelable(false)
-            // set background transparent
-            //dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
-
-            // set view
-            dialog.setContentView(winnerDBinding.root)
-
-            winnerDBinding.winnerResultTextView.text = "Player 2 win the Game"
-
-            winnerDBinding.btnExit.setOnClickListener {
-                val intent = Intent(this,StartActivity::class.java)
-                startActivity(intent)
-            }
-            winnerDBinding.btnPlayAgain.setOnClickListener {
-                val intent = Intent(this,MainActivity::class.java)
-                finish()
-                startActivity(intent)
-            }
-            dialog.show()
-        }
-
         /*if (winner == 1){
             Toast.makeText(this,"PLayer 1 win the Game ",Toast.LENGTH_LONG).show()
         }else if (winner ==2 ){
             Toast.makeText(this,"PLayer 2 win the Game ",Toast.LENGTH_LONG).show()
         }*/
+    }
+
+    private fun disableBtn(){
+        binding.btn1.isEnabled = false
+        binding.btn2.isEnabled = false
+        binding.btn3.isEnabled = false
+        binding.btn4.isEnabled = false
+        binding.btn5.isEnabled = false
+        binding.btn6.isEnabled = false
+        binding.btn7.isEnabled = false
+        binding.btn8.isEnabled = false
+        binding.btn9.isEnabled = false
     }
 }
