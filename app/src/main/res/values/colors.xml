@@ -6,4 +6,6 @@
     <color name="Yellow">#FFEB3B</color>
     <color name="green">#07F83B</color>
     <color name="pink">#FF00A1</color>
+    <color name="lightblack">#4C4C4C</color>
+    <color name="black_ligth">#6E6E6E</color>
 </resources>
