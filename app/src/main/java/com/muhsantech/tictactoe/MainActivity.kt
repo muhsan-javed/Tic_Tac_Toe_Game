@@ -2,22 +2,50 @@ package com.muhsantech.tictactoe
 
 import android.app.Dialog
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.view.Window
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import com.muhsantech.tictactoe.databinding.ActivityMainBinding
+import com.muhsantech.tictactoe.databinding.CelebrateDialogBinding
 import com.muhsantech.tictactoe.databinding.WinnerDialougeBinding
 import java.util.Random
 
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    var activePlayer = 1
+    var player1 = ArrayList<Int>()
+    var player2 = ArrayList<Int>()
+    var btnUsed = 0
+
+    private var playerOne: String? = null
+    private var playerTwo: String? = null
+
+    var playerOneWinCount = 0
+    var playerTwoWinCount = 0
+
+//    var storeActivePlayer:Int = 0
+//    var ActivePlayer:Int = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        playerOne = intent.getStringExtra("p1")
+        playerTwo = intent.getStringExtra("p2")
+        binding.playerOneNameTxt.text = playerOne
+        binding.playerTwoNameTxt.text = playerTwo
+
+        binding.playerOneWinCountTxt.text = playerOneWinCount.toString()
+        binding.playerTwoWonTxt.setText(playerOneWinCount.toString())
 
         binding.resetBtn.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -47,10 +75,7 @@ class MainActivity : AppCompatActivity() {
         playGame(cellId,btnSelected)
     }
 
-    var activePlayer = 1
-    var player1 = ArrayList<Int>()
-    var player2 = ArrayList<Int>()
-    var btnUsed = 0
+
     fun playGame(cellId : Int, btnSelected: AppCompatButton) {
 
         if (activePlayer == 1){
@@ -58,7 +83,7 @@ class MainActivity : AppCompatActivity() {
             btnSelected.setBackgroundResource(R.drawable.playeronebox)
             player1.add(cellId)
             activePlayer = 2
-            autoPlay()
+            //autoPlay()
         }
         else {
             btnSelected.text = "0"
@@ -145,26 +170,57 @@ class MainActivity : AppCompatActivity() {
             // Winner
             if (winner == 1)
             {
-                val winnerDBinding = WinnerDialougeBinding.inflate(layoutInflater)
+//                playerOneWinCount = +1
+//                binding.playerOneWinCountTxt.setText(playerOneWinCount.toString())
+//                val winnerDBinding = WinnerDialougeBinding.inflate(layoutInflater)
+
+                val dialogBinding = CelebrateDialogBinding.inflate(layoutInflater)
                 val dialog = Dialog(this);
-                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
                 dialog.setCancelable(false)
-                dialog.setContentView(winnerDBinding.root)
-                winnerDBinding.winnerResultTextView.text = "Player 1 win the Game"
-                winnerDBinding.btnExit.setOnClickListener {
+                dialog.setCanceledOnTouchOutside(false)
+                dialog.setContentView(dialogBinding.root)
+
+//                Handler(Looper.getMainLooper()).postDelayed({
+                    dialogBinding.celebrateAnimationView.visibility = View.VISIBLE
+                    dialogBinding.container1.visibility = View.VISIBLE
+                    if (winner == 1) {
+                        dialogBinding.offlineGamePlayerImg.setImageResource(R.drawable.cross)
+                    }else {
+                        dialogBinding.offlineGamePlayerImg.setImageResource(R.drawable.circle)
+                    }
+
+//                },2300)
+
+                dialogBinding.offlineGameQuitBtn.setOnClickListener {
+
                     val intent = Intent(this,StartActivity::class.java)
                     startActivity(intent)
+                    dialog.dismiss()
                 }
-                winnerDBinding.btnPlayAgain.setOnClickListener {
+                dialogBinding.offlineGameContinueBtn.setOnClickListener {
                     val intent = Intent(this,MainActivity::class.java)
                     finish()
                     startActivity(intent)
                 }
+
+//                winnerDBinding.winnerResultTextView.text = "Player 1 win the Game"
+//                winnerDBinding.btnExit.setOnClickListener {
+//                    val intent = Intent(this,StartActivity::class.java)
+//                    startActivity(intent)
+//                }
+//                winnerDBinding.btnPlayAgain.setOnClickListener {
+//                    val intent = Intent(this,MainActivity::class.java)
+//                    finish()
+//                    startActivity(intent)
+//                }
                 dialog.show()
             }
             // Loser!
             else {
-
+//                playerTwoWinCount = +1
+//                binding.playerTwoWonTxt.setText(playerTwoWinCount.toString())
                 val winnerDBinding = WinnerDialougeBinding.inflate(layoutInflater)
                 val dialog = Dialog(this);
                 dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)

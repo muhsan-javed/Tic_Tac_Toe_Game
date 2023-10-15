@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/tictactoe2" />
 
     <TextView
@@ -45,4 +45,139 @@
         app:layout_constraintEnd_toEndOf="@+id/textView"
         app:layout_constraintStart_toStartOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <LinearLayout
+        android:id="@+id/player_one_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/startGameButton">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/aclonica"
+            android:gravity="center_vertical"
+            android:text="Player One "
+            android:textAllCaps="false"
+            android:textColor="@color/green"
+            android:textSize="20dp"
+            android:textStyle="bold">
+
+        </TextView>
+
+
+        <EditText
+            android:id="@+id/player_one_name_edttxt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="1.5"
+            android:backgroundTint="#373737"
+            android:cursorVisible="true"
+            android:hint="Nick Name"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/green"
+            android:textColorHint="@color/green"
+            android:textSize="18sp">
+
+        </EditText>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/player_one_btn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="95dp"
+            android:layout_marginRight="95dp"
+            android:layout_weight="1.5"
+            android:background="@color/green"
+            android:fontFamily="@font/aclonica"
+            android:gravity="center"
+            android:text="Next"
+            android:layout_marginTop="20dp"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/player_two_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/startGameButton"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/aclonica"
+            android:gravity="center_vertical"
+            android:text="Player Two "
+            android:textAllCaps="false"
+            android:textColor="@color/green"
+            android:textSize="20dp"
+            android:textStyle="bold">
+
+        </TextView>
+
+        <EditText
+            android:id="@+id/player_two_name_edttxt"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="1.5"
+            android:backgroundTint="#4C4C4C"
+            android:hint="Nick Name"
+            android:maxLength="10"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/green"
+            android:textColorHint="@color/green"
+            android:textSize="18sp">
+
+        </EditText>
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/player_two_btn"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="95dp"
+            android:layout_marginRight="95dp"
+            android:layout_weight="1.5"
+            android:background="@color/green"
+            android:fontFamily="@font/aclonica"
+            android:gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Next"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="18dp"
+            android:textStyle="bold" />
+
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
