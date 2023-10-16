@@ -16,7 +16,7 @@ class StartActivity : AppCompatActivity(), View.OnTouchListener {
 
     }
     var playerOne: String? = null
-    var playerTwo:String? = null
+    var playerTwo: String? = null
     var islayout = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,10 +35,9 @@ class StartActivity : AppCompatActivity(), View.OnTouchListener {
 
         binding.playerOneBtn.setOnTouchListener(this)
         binding.playerOneBtn.setOnClickListener {
-            if (TextUtils.isEmpty(binding.playerOneNameEdttxt.text.toString())){
-                Toast.makeText(this,"Enter Name", Toast.LENGTH_LONG).show()
-            }else
-            {
+            if (TextUtils.isEmpty(binding.playerOneNameEdttxt.text.toString())) {
+                Toast.makeText(this, "Enter Name", Toast.LENGTH_LONG).show()
+            } else {
                 islayout = false
                 binding.playerOneLayout.visibility = View.GONE
                 binding.playerTwoLayout.visibility = View.VISIBLE
@@ -49,14 +48,13 @@ class StartActivity : AppCompatActivity(), View.OnTouchListener {
 
         binding.playerTwoBtn.setOnTouchListener(this)
         binding.playerTwoBtn.setOnClickListener {
-            if (TextUtils.isEmpty(binding.playerOneNameEdttxt.text.toString())){
-                Toast.makeText(this,"Enter Name", Toast.LENGTH_LONG).show()
-            }else
-            {
+            if (TextUtils.isEmpty(binding.playerOneNameEdttxt.text.toString())) {
+                Toast.makeText(this, "Enter Name", Toast.LENGTH_LONG).show()
+            } else {
                 playerTwo = binding.playerTwoNameEdttxt.text.toString()
-                val intent = Intent(this@StartActivity,MainActivity::class.java)
-                intent.putExtra("p1",playerOne)
-                intent.putExtra("p2",playerTwo)
+                val intent = Intent(this@StartActivity, MainActivity::class.java)
+                intent.putExtra("p1", playerOne)
+                intent.putExtra("p2", playerTwo)
                 startActivity(intent)
             }
         }
