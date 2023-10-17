@@ -11,12 +11,13 @@ import androidx.appcompat.app.AppCompatActivity
 import com.muhsantech.tictactoe.databinding.ActivityStartBinding
 
 class StartActivity : AppCompatActivity(), View.OnTouchListener {
+
     private val binding by lazy {
         ActivityStartBinding.inflate(layoutInflater)
 
     }
     var playerOne: String? = null
-    var playerTwo: String? = null
+    private var playerTwo: String? = null
     var islayout = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,7 +84,7 @@ class StartActivity : AppCompatActivity(), View.OnTouchListener {
         return false
     }
 
-    // slide the view from below itself to the current position
+    // Slide the view from below itself to the current position
     fun slideUp(view: View) {
         view.visibility = View.VISIBLE
         val animate = TranslateAnimation(
@@ -97,7 +98,7 @@ class StartActivity : AppCompatActivity(), View.OnTouchListener {
         view.startAnimation(animate)
     }
 
-    // slide the view from its current position to below itself
+    // Slide the view from its current position to below itself
     fun slideDown(view: View) {
         val animate = TranslateAnimation(
             0f,  // fromXDelta
