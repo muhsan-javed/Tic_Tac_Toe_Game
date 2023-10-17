@@ -165,13 +165,13 @@ class MainActivity : AppCompatActivity() {
             winner = 2
         }
 
-
+        // Check Winner
         if (winner != -1) {
             // Winner
             if (winner == 1) {
 //                playerOneWinCount = +1
 //                binding.playerOneWinCountTxt.setText(playerOneWinCount.toString())
-//                val winnerDBinding = WinnerDialougeBinding.inflate(layoutInflater)
+//                val winnerDBinding = WinnerDialogBinding.inflate(layoutInflater)
 
                 val dialogBinding = CelebrateDialogBinding.inflate(layoutInflater)
                 val dialog = Dialog(this);
@@ -193,11 +193,11 @@ class MainActivity : AppCompatActivity() {
 //                },2300)
 
                 dialogBinding.offlineGameQuitBtn.setOnClickListener {
-
                     val intent = Intent(this, StartActivity::class.java)
                     startActivity(intent)
                     dialog.dismiss()
                 }
+
                 dialogBinding.offlineGameContinueBtn.setOnClickListener {
                     val intent = Intent(this, MainActivity::class.java)
                     finish()
@@ -216,7 +216,7 @@ class MainActivity : AppCompatActivity() {
 //                }
                 dialog.show()
             }
-            // Loser!
+            // Lost the Game  !
             else {
 //                playerTwoWinCount = +1
 //                binding.playerTwoWonTxt.setText(playerTwoWinCount.toString())
@@ -242,14 +242,15 @@ class MainActivity : AppCompatActivity() {
             if (winner == 1 || winner == 2) {
                 disableBtn()
             }
-
         }
+
         btnUsed = 0
         for (cellId in 0..9) {
             if (player1.contains(cellId) || player2.contains(cellId)) {
                 btnUsed++
             }
         }
+
         if (btnUsed >= 8 && winner == -1) {
 
             disableBtn()
